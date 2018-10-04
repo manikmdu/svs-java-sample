@@ -1,7 +1,7 @@
 package com.aws.codestar.projecttemplates.handler;
 
 import com.amazonaws.serverless.proxy.internal.testutils.MockLambdaContext;
-
+import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
 import com.aws.codestar.projecttemplates.GatewayResponse;
 
 import org.json.JSONObject;
@@ -24,7 +24,7 @@ public class HelloWorldHandlerTest {
 
     // A mock class for com.amazonaws.services.lambda.runtime.Context
     private final MockLambdaContext mockLambdaContext = new MockLambdaContext();
-    private final Object input = new Object();
+    private final AwsProxyRequest input = new AwsProxyRequest();
 
     /**
      * Initializing variables before we run the tests.
