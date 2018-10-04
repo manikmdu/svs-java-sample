@@ -14,18 +14,25 @@ import com.aws.codestar.projecttemplates.GatewayResponse;
 /**
  * Handler for requests to Lambda function.
  */
-public class HelloWorldHandler implements RequestHandler<APIGatewayProxyRequestEvent, Object> {
+public class HelloWorldHandler implements RequestHandler<Object, Object> {
 
-    public Object handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
+    public Object handleRequest(final Object input, final Context context) {
+    	try {
+    		APIGatewayProxyRequestEvent inp = APIGatewayProxyRequestEvent.class.cast(input);
+        	Map<String, String> queryParams = inp.getQueryStringParameters();
+        	
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Content-Type", "application/json");
+            String message= "Hello World!";
+            if (null != queryParams && null != queryParams.get("name")) {
+            	message = "Hello "+ queryParams.get("name");
+            }
+            return new GatewayResponse(new JSONObject().put("Output", message).toString(), headers, 200);
+
+    	} catch (ClassCastException cce) {
+    		cce.printStackTrace();
+    		return "FAILURE";
+    	}
     	
-    	Map<String, String> queryParams = input.getQueryStringParameters();
-    	
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json");
-        String message= "Hello World!";
-        if (null != queryParams && null != queryParams.get("name")) {
-        	message = "Hello "+ queryParams.get("name");
-        }
-        return new GatewayResponse(new JSONObject().put("Output", message).toString(), headers, 200);
     }
 }
