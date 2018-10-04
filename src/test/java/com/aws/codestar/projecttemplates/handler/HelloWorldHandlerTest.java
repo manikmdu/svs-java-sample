@@ -1,8 +1,6 @@
 package com.aws.codestar.projecttemplates.handler;
 
-import com.amazonaws.serverless.proxy.internal.testutils.MockLambdaContext;
-import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
-import com.aws.codestar.projecttemplates.GatewayResponse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
@@ -10,7 +8,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.amazonaws.serverless.proxy.internal.testutils.MockLambdaContext;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.aws.codestar.projecttemplates.GatewayResponse;
 
 /**
  * Tests for {@link HelloWorldHandler}. Modify the tests in order to support your use case as you build your project.
@@ -24,7 +24,7 @@ public class HelloWorldHandlerTest {
 
     // A mock class for com.amazonaws.services.lambda.runtime.Context
     private final MockLambdaContext mockLambdaContext = new MockLambdaContext();
-    private final AwsProxyRequest input = new AwsProxyRequest();
+    private final APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
 
     /**
      * Initializing variables before we run the tests.
